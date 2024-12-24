@@ -2,21 +2,33 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: OakTreeLeaves01
-  m_Shader: {fileID: 4800000, guid: 0f96a2937f6bace459a5fdaac39c0fb3, type: 3}
-  m_ShaderKeywords: _BASEWINDCHANNEL_B _BASEWIND_B _HIDEHARDANGLES_ON _HIDESIDES_ON
-    _MICROWINDCHANNEL_R _MICROWIND_R _USEDITHER_ON
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _ALPHATEST_ON
+  m_InvalidKeywords:
+  - _BASEWINDCHANNEL_B
+  - _BASEWIND_B
+  - _HIDEHARDANGLES_ON
+  - _HIDESIDES_ON
+  - _MICROWINDCHANNEL_R
+  - _MICROWIND_R
+  - _USEDITHER_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2450
+  stringTagMap:
+    RenderType: TransparentCutout
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -53,7 +65,7 @@ Material:
         m_Scale: {x: 2, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f702406db7a985649ade93cb60009e67, type: 3}
+        m_Texture: {fileID: 2800000, guid: dc90df6113cd41d45a04e130493fdda4, type: 3}
         m_Scale: {x: 2, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -100,6 +112,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _BaseWind: 2
     - _BaseWindChannel: 2
@@ -108,7 +121,7 @@ Material:
     - _BranchPhase1: 1.05
     - _BumpScale: 1
     - _ColorVariationPower: 0
-    - _Cutoff: 0.1
+    - _Cutoff: 0.903
     - _DetailNormalMapScale: 1
     - _Dither: 3
     - _DitherPower: 2.5
@@ -140,7 +153,7 @@ Material:
     - _MicroWind: 0
     - _MicroWindChannel: 0
     - _MicroWindMultiplier: 0.5
-    - _Mode: 0
+    - _Mode: 1
     - _NoiseScale: 0.15
     - _NormalAttenuation: 1
     - _NormalDistortion: 1
@@ -173,6 +186,7 @@ Material:
     - _TrunkWindPower: 1
     - _UVSec: 0
     - _UseDither: 1
+    - _VertexOcclusionPower: 0
     - _WindBurstsPower: 10
     - _WindBurstsScale: 1
     - _WindBurstsSpeed: 50
@@ -188,7 +202,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.19215687, g: 0.6117647, b: 0.23137255, a: 1}
     - _Color0: {r: 1, g: 1, b: 1, a: 0}
     - _ColorVariation: {r: 1, g: 0.11461386, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
@@ -203,3 +217,5 @@ Material:
     - _TreeOffset1: {r: 0, g: 5, b: 0, a: 0}
     - _Vector0: {r: 1, g: 1, b: 0, a: 0}
     - _windOrientation: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

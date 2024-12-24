@@ -44,63 +44,89 @@ namespace Yd.Gameplay.AbilitySystem
 
             Owner.Character.Animator.SetValue(AnimatorParameterId.Attack, true);
             Owner.Character.Animator.SetTrigger(SpellPrepare);
-
-            await Task.Delay(TimeSpan.FromSeconds(SpellData.SpellPrepareDuration));
-
-            Owner.Character.Animator.SetBool(Spell, true);
-            isLaunching = true;
-
-            await Task.Delay(TimeSpan.FromSeconds(SpellData.SpellDuration));
-
-            isLaunching = false;
-            Owner.Character.Animator.SetBool(Spell, false);
-            Owner.Character.Animator.SetValue(AnimatorParameterId.Attack, false);
-            CoroutineTimer.Cancel(ref growlSounds);
+            
+            // await Task.Delay(TimeSpan.FromSeconds(SpellData.SpellPrepareDuration));
+            //
+            // Owner.Character.Animator.SetBool(Spell, true);
+            // isLaunching = true;
+            //
+            // await Task.Delay(TimeSpan.FromSeconds(SpellData.SpellDuration));
+            //
+            // isLaunching = false;
+            // Owner.Character.Animator.SetBool(Spell, false);
+            // Owner.Character.Animator.SetValue(AnimatorParameterId.Attack, false);
+            // CoroutineTimer.Cancel(ref growlSounds);
 
             return true;
         }
+
+        private float spellPrepareTimer = 0;
+        private float spellTimer = 0;
 
         public override void Tick()
         {
             base.Tick();
 
-            if (isLaunching && fireballLauncher == null)
+            if (spellPrepareTimer < SpellData.SpellPrepareDuration)
             {
-                fireballLauncher = CoroutineTimer.SetTimer
-                (
-                    context => {
-                        if (Owner == null)
-                        {
-                            return;
-                        }
-
-                        if (Owner.Character.Target == null)
-                        {
-                            return;
-                        }
-
-                        var randomInCircle = RandomE.RandomInCircle(4f);
-                        var position = Owner.Character.Target.transform.position +
-                                       new Vector3(randomInCircle.x, 0f, randomInCircle.y);
-
-                        var fireball = UnityEngine.Object.Instantiate(SpellData.FireballPrefab);
-                        fireball.GetComponent<LavaFireBall>().Owner = Owner.Character.gameObject;
-
-                        fireball.transform.position = position;
-                        fireball.transform.forward = position - Owner.transform.position;
-
-                    },
-                    0.8f,
-                    new CoroutineTimerLoopPolicy
-                    {
-                        invokeImmediately = false,
-                        isInfiniteLoop = true
-                    }
-                );
+                spellPrepareTimer += Time.deltaTime;
             }
-            else if (!isLaunching && fireballLauncher != null)
+            else if (spellTimer < SpellData.SpellDuration)
             {
-                CoroutineTimer.Cancel(ref fireballLauncher);
+                spellTimer += Time.deltaTime;
+                if (!isLaunching)
+                {
+                    Owner.Character.Animator.SetBool(Spell, true);
+                    isLaunching = true;
+                }
+                if (isLaunching && fireballLauncher == null)
+                {
+                    fireballLauncher = CoroutineTimer.SetTimer
+                    (
+                        context => {
+                            if (Owner == null)
+                            {
+                                return;
+                            }
+
+                            if (Owner.Character.Target == null)
+                            {
+                                return;
+                            }
+
+                            var randomInCircle = RandomE.RandomInCircle(4f);
+                            var position = Owner.Character.Target.transform.position +
+                                           new Vector3(randomInCircle.x, 0f, randomInCircle.y);
+
+                            var fireball = UnityEngine.Object.Instantiate(SpellData.FireballPrefab);
+                            fireball.GetComponent<LavaFireBall>().Owner = Owner.Character.gameObject;
+
+                            fireball.transform.position = position;
+                            fireball.transform.forward = position - Owner.transform.position;
+
+                        },
+                        0.8f,
+                        new CoroutineTimerLoopPolicy
+                        {
+                            invokeImmediately = false,
+                            isInfiniteLoop = true
+                        }
+                    );
+                }
+            }
+            else
+            {
+                if (isLaunching)
+                {
+                    isLaunching = false;
+                    Owner.Character.Animator.SetBool(Spell, false);
+                    Owner.Character.Animator.SetValue(AnimatorParameterId.Attack, false);
+                    CoroutineTimer.Cancel(ref growlSounds);
+                }
+                if (!isLaunching && fireballLauncher != null)
+                {
+                    CoroutineTimer.Cancel(ref fireballLauncher);
+                }
             }
         }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lava Spell Ability
   m_EditorClassIdentifier: 
   maxActivation: 1
-  cooldown: 1
+  cooldown: 15
   cost: {fileID: 0}
   effectsToApply: []
   passive: 0
